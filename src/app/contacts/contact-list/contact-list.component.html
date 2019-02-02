@@ -1,0 +1,35 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="col-md-7">Contacts</div>
+    <button class="btn btn-success">New Contact</button>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+        <div class="col-xs-12">
+            <a href="#" class="list-group-item clearfix" *ngFor="let hint of hints">
+                <div class="pull-left">
+                    <h4 class="list-group-item-heading">{{ contact.name }}</h4>
+                </div>
+                <span class="pull-right">
+                    <img [src]="contact.imageUrl" alt=" {{ contact.name }} " class="img-responsive" style="max-height: 50px;">
+                </span>
+            </a>
+            
+        </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- <div class="col-xs-12">
+    <a href="#" class="list-group-item clearfix" *ngFor="let hint of hints">
+        <div class="pull-left">
+            <h4 class="list-group-item-heading">{{ hint.name }}</h4>
+            <p class="list-group-item-text">{{ hint.description }}</p>
+        </div>
+        <span class="pull-right">
+            <img [src]="hint.imagePath" alt=" {{ hint.name }}" class="img-responsive" style="max-height: 50px;">
+        </span>
+    </a>
+    <IT-hint-item></IT-hint-item>
+</div> -->
