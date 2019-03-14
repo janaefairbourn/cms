@@ -7,12 +7,12 @@ export class Contact {
     public group = [];
 
 
-    constructor(contactId: string, name: string, email: string, phone: string, imageUrl: string,) {
+    constructor(contactId: string, name: string, email: string, phone: string, imageUrl: string, group?: []) {
         this.contactId = contactId;
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.imageUrl = imageUrl;
-        //this.group[] = group[];
+        this.group = group;
     }
 }

@@ -1,3 +1,18 @@
-<p>
-  contacts-detail works!
-</p>
+<div class="panel-group">
+  <div class="panel panel-default">
+    <div class="panel-heading" *ngFor="let contact of contacts">
+      <h4><strong> {{ contact.name }} </strong></h4>
+      <a style="cursor: pointer;" type="button" class="btn btn-primary pull-right" style="margin: 2px">Edit</a>
+      <a type="button" (click)="onDelete()" class="btn btn-danger pull-right" style="margin: 2px">Delete</a>
+      <img
+        [src]="contact.imageUrl"
+        alt="{{ contact.name}}"
+        class="img-responsive"
+        style="max-height: 90px;">
+    </div>
+    <div class="panel-body">
+      <h5><strong>Email: </strong> {{ contact.email }}</h5>
+      <h5><strong>Phone: </strong> {{ contact.phone }}</h5>
+    </div>
+  </div>
+</div> 
