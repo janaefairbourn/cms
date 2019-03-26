@@ -12,7 +12,6 @@
             <cms-message-item 
               *ngFor= "let message of messages"
               [message] = "message"
-              (messageSelected)="onMessageSelected(message)"
             ></cms-message-item>
           </div>
         </div>
