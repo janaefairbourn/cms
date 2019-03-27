@@ -1,6 +1,7 @@
 import { Component, OnInit, Injectable } from '@angular/core';
 import { Document} from '../document.model';
 import { DocumentService } from '../document.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'cms-document-list',
@@ -8,16 +9,20 @@ import { DocumentService } from '../document.service';
   styleUrls: ['./document-list.component.css']
 })
 export class DocumentListComponent implements OnInit {
+  private subscription: Subscription;
   documents: Document[] = [];
 
-  constructor(private documentService: DocumentService) { }
+  constructor(private documentService: DocumentService) {
+    this.documents = this.documentService.getDocuments();
+   }
 
   ngOnInit() {
-    this.documents = this.documentService.getDocuments();
-  }
-
-  onSelected (document: Document) {
-    this.documentService.documentSelectedEvent.emit(document);
+    this.subscription = this.documentService.documentChangedEvent
+      .subscribe(
+        (documentsList: Document[]) => {
+          this.documents = documentsList;
+        }
+      )
   }
 
 }

@@ -2,8 +2,15 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4><strong> {{ contact.name }} </strong></h4>
-      <a style="cursor: pointer;" type="button" class="btn btn-primary pull-right" style="margin: 2px">Edit</a>
-      <a type="button" (click)="onDelete()" class="btn btn-danger pull-right" style="margin: 2px">Delete</a>
+      <a 
+        (click)="onDelete()" 
+        class="btn btn-danger pull-right">Delete
+      </a>
+      <a 
+        class="btn btn-primary pull-right"
+        [routerLink]="['edit']"
+        routerLinkActive="router-link-active">Edit
+      </a>
       <img
         [src]="contact.imageUrl"
         alt="{{ contact.name}}"
