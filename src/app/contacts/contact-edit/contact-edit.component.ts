@@ -50,7 +50,8 @@ export class ContactEditComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     const value = form.value;
-    let newContact = new Contact(value.id, value.name, value.email, value.phone, value.imageUrl, value.groupContacts);
+    let newContact = new Contact('', value.name, value.email, value.phone, value.imageUrl, this.groupContacts);
+
     if (this.editMode) {
       this.contactService.updateContact(this.originalContact, newContact);
     } else {
@@ -68,7 +69,7 @@ export class ContactEditComponent implements OnInit {
       return true;
     }
 
-    if (newContact.id === this.contact.id) {
+    if (this.contact && (newContact.id === this.contact.id)) {
       return true;
     }
 

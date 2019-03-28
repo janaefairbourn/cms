@@ -1,17 +1,32 @@
 <div class="panel panel-default">
+  
   <div class="panel-heading">
-    <div class="col-md-7">Contacts</div>
-    <button 
-      class="btn btn-success" 
-      routerLinkActive="active"
-      [routerLink]="['new']">New Contact
-    </button>
+    <div class="row">
+      <span class="title pad-left-right">Contacts</span>
+    </div>
+    <div class="row">
+      <div class="input-group pull-left pad-left-right col-xs-7">
+        
+        <input 
+          type="text" 
+          #searchBox 
+          (keyUp)="onKeyPress(searchBox.value" 
+          class="form-control" 
+          placeholder="Enter Search Value">
+
+        <div class="glyphicon glyphicon glyphicon-search input-group-addon" (click)="search(searchBox.value)"></div>
+      </div>
+      <div class="pull-right pad-left-right">
+        <a class="btn btn-success" [routerLink]="['new']">New Contact</a>
+      </div>
+    </div>
   </div>
+
   <div class="panel-body">
     <div class="row">
         <div class="col-xs-12">
             <cms-contact-item
-              *ngFor="let contact of contacts"
+              *ngFor="let contact of contacts | contactsFilter: term"
               [contact]="contact"
               dnd-draggable 
               [dragEnabled]="true" 
