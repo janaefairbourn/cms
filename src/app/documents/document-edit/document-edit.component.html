@@ -13,9 +13,10 @@
             size="120"
             max="120"
             name="name"
+            ngModel
             [ngModel]="document?.name"
             required
-            #name="ngModel">
+            #name>
         </div>
 
         <div class="col-sm-12 form-group">
@@ -28,7 +29,7 @@
             max="255"
             name="description"
             [ngModel]="document?.description"
-            #description="ngModel">
+            #description>
         </div>
 
         <div class="col-sm-12 form-group">
@@ -40,9 +41,9 @@
             size="150"
             max="255"
             name="documentUrl"
-            [ngModel]="document?.document?.documentUrl"
+            [ngModel]="document?.url"
             required
-            #documentUrl="ngModel">
+            #documentUrl>
         </div>
 
         <div class="alert alert-danger" *ngIf="f.touched && !f.valid">
