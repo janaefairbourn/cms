@@ -7,12 +7,7 @@
     <div class="row">
       <div class="input-group pull-left pad-left-right col-xs-7">
         
-        <input 
-          type="text" 
-          #searchBox 
-          (keyUp)="onKeyPress(searchBox.value" 
-          class="form-control" 
-          placeholder="Enter Search Value">
+        <input type="text" #searchBox (keyup)="onKeyPress(searchBox.value)" placeholder="Enter search value">
 
         <div class="glyphicon glyphicon glyphicon-search input-group-addon" (click)="search(searchBox.value)"></div>
       </div>

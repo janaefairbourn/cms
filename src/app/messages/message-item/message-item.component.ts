@@ -12,15 +12,15 @@ import { Contact } from '../../contacts/contact.model';
 export class MessageItemComponent implements OnInit {
   @Input() message: Message;
 
-  messageSender: string = "";
+  messageSender = "";
   canEdit: boolean = false;
   
 
   constructor(private contactService: ContactService) { }
 
   ngOnInit() {
-    let contact: Contact = this.contactService.getContact(this.message.sender);
-    this.messageSender = contact.name;
+    const contact: Contact = this.contactService.getContact(this.message.sender);
+    this.messageSender = contact ? contact.name: 'Unable to load contact';
   }
 
 }
