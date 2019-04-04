@@ -8,7 +8,7 @@ import { ContactsComponent } from './contacts/contacts.component';
 import { ContactListComponent } from './contacts/contact-list/contact-list.component';
 import { ContactsDetailComponent } from './contacts/contacts-detail/contacts-detail.component';
 import { ContactItemComponent } from './contacts/contact-list/contact-item/contact-item.component';
-import {  FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { DocumentsComponent } from './documents/documents.component';
 import { DocumentListComponent } from './documents/document-list/document-list.component';
 import { DocumentDetailComponent } from './documents/document-detail/document-detail.component';

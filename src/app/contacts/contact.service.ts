@@ -21,28 +21,29 @@ export class ContactService {
         this.getContacts();
     }
 
-    storeContacts() {
-        this.contacts = JSON.parse(JSON.stringify(this.contacts));
-        const header = new HttpHeaders({'Content-Type': 'application/json'});
-        return this.http.put('https://fairbournj-cms.firebaseio.com/contacts.json', this.contacts, {headers: header})
-          .subscribe(
-            (contacts: Contact[]) => {
-              this.contactListChangedEvent.next(this.contacts.slice());
-            }
-          );
-      }
+    // storeContacts() {
+    //     this.contacts = JSON.parse(JSON.stringify(this.contacts));
+    //     const header = new HttpHeaders({'Content-Type': 'application/json'});
+    //     return this.http.put('https://fairbournj-cms.firebaseio.com/contacts.json', this.contacts, {headers: header})
+    //       .subscribe(
+    //         (contacts: Contact[]) => {
+    //           this.contactListChangedEvent.next(this.contacts.slice());
+    //         }
+    //       );
+    //   }
     
       getContacts() {
-        this.http.get('https://fairbournj-cms.firebaseio.com/contacts.json')
+        this.http.get<{ message: String, contacts: Contact[]}>('http://localhost:3000/contacts')
           .subscribe(
-            (contacts: Contact[]) => {
-              this.contacts = contacts;
+            (contactsData) => {
+              this.contacts = contactsData.contacts;
               this.contacts.sort((a, b) => (a['name'] < b['name']) ? 1 : (a['name'] > b['name']) ? -1 : 0);
               this.contactListChangedEvent.next(this.contacts.slice());
             }, (error: any) => {
               console.log('Please contact Website Admin')
             }
           ); 
+          return this.contacts.slice();
       }
 
     getContact(id: string): Contact{
@@ -55,19 +56,24 @@ export class ContactService {
     }
 
     deleteContact(contact: Contact) {
-        if (contact === null || contact === undefined) {
+        if (!contact) {
             return;
         }
+        this.http.delete('http://localhost:3000/contacts/' + contact.id)
+        .subscribe(
+            (response: Response) => {
+                this.getContacts();
+            });
 
-        const pos = this.contacts.indexOf(contact);
-        if (pos < 0) {
-            return;
-        }
+        // const pos = this.contacts.indexOf(contact);
+        // if (pos < 0) {
+        //     return;
+        // }
 
-        this.contacts.splice(pos,1);
+        // this.contacts.splice(pos,1);
         // const contactsListClone = this.contacts.slice();
         // this.contactListChangedEvent.next(contactsListClone);
-        this.storeContacts();
+        // this.storeContacts();
     }
 
     getMaxId(): number {
@@ -83,8 +89,12 @@ export class ContactService {
         return maxId;
     }
 
+    // const headers = new HttpHeaders ({
+    //     'Content-Type' : 'application/json'
+    // });
+
     addContact(newContact: Contact) {
-        if (newContact === undefined || newContact === null) {
+        if (!newContact) {
             return;
         }
 
@@ -93,7 +103,7 @@ export class ContactService {
         this.contacts.push(newContact);
         // const contactsListClone = this.contacts.slice();
         // this.contactListChangedEvent.next(contactsListClone);
-        this.storeContacts();
+        // this.storeContacts();
     }
 
     updateContact(originalContact: Contact, newContact: Contact) {
@@ -110,7 +120,7 @@ export class ContactService {
         this.contacts[pos] = newContact;
         // const contactsListClone = this.contacts.slice();
         // this.contactListChangedEvent.next(contactsListClone);
-        this.storeContacts();
+        // this.storeContacts();
     }
 
 }
