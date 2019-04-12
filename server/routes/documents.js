@@ -11,7 +11,6 @@ function returnError(res, error) {
     });
 }
 
-// revisit
 router.get('/', (req, res, next) => {
     Document.find()
         .then(documents => {

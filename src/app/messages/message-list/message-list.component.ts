@@ -1,41 +1,40 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Message } from '../message.model';
 import { MessageService } from '../message.service';
-import { ContactService } from 'src/app/contacts/contact.service';
 import { Subscription } from 'rxjs';
+import { ContactService } from 'src/app/contacts/contact.service';
 
 @Component({
   selector: 'cms-message-list',
   templateUrl: './message-list.component.html',
   styleUrls: ['./message-list.component.css']
 })
-export class MessageListComponent implements OnInit {
-  private subscription: Subscription;
+export class MessageListComponent implements OnInit, OnDestroy {
+  subscription: Subscription;
   messages: Message[] = [];
 
   constructor(private messageService: MessageService,
-    private contactService: ContactService) { }
+              private contactService: ContactService) { }
 
   ngOnInit() {
-    this.subscription = this.contactService.contactListChangedEvent
+    this.subscription = this.messageService.messageListChangedEvent
       .subscribe(
-        (response) => {
-          this.messageService.getMessages();
+        (message: Message[]) => {
+          this.messages = message;
         }
       );
+  }
 
-    this.messageService.messageListChangedEvent
-      .subscribe(
-        (messages: Message[]) => {
-          this.messages = messages;
-        }
-      );
-
-      this.contactService.getContacts();
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   onAddMessage (message: Message){
     this.messages.push(message);
+  }
+
+  onSelectedMessage(message: Message[]) {
+    this.messageService.messageListChangedEvent.next(message);
   }
 
 }

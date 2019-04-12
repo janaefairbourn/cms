@@ -13,7 +13,7 @@ function returnError(res, error) {
 
 // revisit
 router.get('/', (req, res, next) => {
-    message.find()
+    Message.find()
         .then(messages => {
             res.status(200).json({
                 message: 'Messages fetched successfully',
@@ -39,7 +39,7 @@ router.post('/', (req, res, next) => {
         .then(createdMessage => {
             res.status(201).json({
                 message: 'Message added successfully',
-                messageId: createdMessage.id
+                messageId: createdMessage
             });
         })
         .catch(error => {
